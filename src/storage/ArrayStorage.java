@@ -7,9 +7,10 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
+public class ArrayStorage implements Storage{
+    public static final int STORAGE_LIMIT = 10000;
     private int size = 0;
-    private Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
 
     public Resume get(String uuid) {
         int index = getIndex(uuid);
@@ -61,12 +62,7 @@ public class ArrayStorage {
     }
 
     public void clear() {
-//        Arrays.setAll(storage, null);
-        // Интересна какова производительность на больших массивах с альтернативной реализацией?
-        while (size - 1 > -1) {
-            storage[size] = null;
-            size--;
-        }
+        Arrays.fill(storage,0, size, null);
     }
 
     public void update(Resume resume) {
